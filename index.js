@@ -5,7 +5,7 @@ const port = process.env.HTTP_PORT || 3000;
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 
-//testing git
+
 app.use(bodyParser.json());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
