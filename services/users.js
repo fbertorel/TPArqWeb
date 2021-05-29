@@ -1,5 +1,6 @@
 const fs = require("fs");
 const users = require("../saves/users.json");
+const { v4: uuidv4 } = require("uuid");
 
 class UsersService {
   fields = ["mail", "firstname", "lastname", "document"];
@@ -25,6 +26,17 @@ class UsersService {
     users.splice(userIndex, 1);       //corto el usuario que busque el id
     fs.writeFileSync("saves/users.json", JSON.stringify(users));      //grabo archivo para grabar cambios
     return true;
+  }
+
+  create = user => {
+    const existingUser = users.find(pUser => pUser.mail === user.mail);
+    if (existingUser) {
+      throw new Error("User already exists");
+    }
+    user.id = uuidv4();
+    users.push(user);
+    fs.writeFileSync("saves/users.json", JSON.stringify(users));
+    return user;
   }
 }
 

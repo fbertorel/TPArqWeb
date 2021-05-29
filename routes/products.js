@@ -30,4 +30,23 @@ router.delete("/:id", (req, res) => {
   }
 });
 
+router.post("", (req, res) => {           //me esta dejando enviar en el body cualquier cosa o paramentros faltantes. Necesito validar el body que se recibe
+  if (!req.body) {
+    res.status(400).send("Parameters not defined");
+    return;
+  }
+
+  const product = {
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price
+  };
+  try {
+    const createdProduct = productsService.create(product);    //creo el producto, que en ./services/products.js va a guardarlo en el JSON de saves
+    res.send(createdProduct);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+});
+
 module.exports = router;

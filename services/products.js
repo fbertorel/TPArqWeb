@@ -1,5 +1,6 @@
 const fs = require("fs");
 const products = require("../saves/products.json");
+const { v4: uuidv4 } = require("uuid");   //para generar id unicas
 
 class ProductsService {
   fields = ["name", "description", "price"];
@@ -25,6 +26,14 @@ class ProductsService {
     fs.writeFileSync("saves/products.json", JSON.stringify(products));
     return true;
   }
+
+  create = product => {
+    product.id = uuidv4();    //id unica
+    products.push(product);   //agrega producto 
+    fs.writeFileSync("saves/products.json", JSON.stringify(products));  //guardo producto en archivo JSON
+    return product;
+  }
+
 }
 
 module.exports = new ProductsService();
