@@ -18,7 +18,7 @@ Metodo  | Endpoint | Body | Response | Status
 GET  | /users  | - | Muestra todos los usuarios | 200  
 GET  | /users/:id  | - | Muestra el usuario que corresponde al ID brindado | 200
 GET  | /products  | - | Muestra todos los productos | 200 
-GET  | /products:id  | - | Muestra el producto que corresponde al ID brindado | 200
+GET  | /products/:id  | - | Muestra el producto que corresponde al ID brindado | 200
 GET  | /sales  | - | Muestra todas las ventas | 200 
 GET  | /sales:id  | - | Muestra la venta que corresponde al ID brindado | 200 
 GET  | /sales/user/:userId  | - | Muestra las compras de un usuario brindado | 200  
