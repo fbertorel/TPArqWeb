@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const { validateParams} = require('../validator/validator');
 const productsService = require("../services/products");
 
 router.get("/", (req, res) => {
@@ -48,5 +48,25 @@ router.post("", (req, res) => {           //me esta dejando enviar en el body cu
     res.status(400).send(e.message);
   }
 });
+
+router.put("/:id", (req, res) => {
+  if (!req.params.id || !req.body || !validateParams(req.body, productsService.fields)) {
+    res.status(400).send("Parameters not defined");
+    return;
+  }
+  const product = {
+    id: req.params.id,
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price
+  };
+  try {
+    const updated = productsService.update(product);
+    res.send(updated);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+});
+
 
 module.exports = router;

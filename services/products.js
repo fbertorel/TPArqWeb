@@ -34,6 +34,16 @@ class ProductsService {
     return product;
   }
 
+  update = product => {
+    const productIndex = products.findIndex(pProduct => pProduct.id === product.id);
+    if (productIndex === -1) {
+      throw new Error("Product does not exist");
+    }
+    products[productIndex] = product;
+    fs.writeFileSync("saves/products.json", JSON.stringify(products));
+    return product;
+  }
+
 }
 
 module.exports = new ProductsService();

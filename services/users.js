@@ -38,6 +38,18 @@ class UsersService {
     fs.writeFileSync("saves/users.json", JSON.stringify(users));
     return user;
   }
+
+  update = user => {
+    const userIndex = users.findIndex(pUser => pUser.id === user.id);
+    if (userIndex === -1) {
+      throw new Error("User not found");
+    }
+    users[userIndex] = user;
+    fs.writeFileSync("saves/users.json", JSON.stringify(users));
+    return user;
+  }
+
+
 }
 
 module.exports = new UsersService();

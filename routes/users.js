@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const { validateParams } = require('../validator/validator');
 const usersService = require("../services/users");
 
 router.get("/", (req, res) => {
@@ -50,5 +50,27 @@ router.post("", (req, res) => {             //mismo problema que products. Permi
     res.status(400).send(e.message);
   }
 });
+
+router.put("/:id", (req, res) => {
+  if (!req.params.id || !req.body || !validateParams(req.body, usersService.fields)) {
+    res.status(400).send("Parameters not defined");
+    return;
+  }
+  const user = {
+    id: req.params.id,
+    email: req.body.email,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    document: req.body.document,
+    role: req.body.role,
+  };
+  try {
+    const updatedUser = usersService.update(user);
+    res.send(updatedUser);
+  } catch(e) {
+    res.status(400).send(e.message);
+  }
+});
+
 
 module.exports = router;
