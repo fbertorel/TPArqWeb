@@ -18,9 +18,9 @@ Metodo  | Endpoint | Body | Response | Status
 GET  | /users  | - | Muestra todos los usuarios | 200  
 GET  | /users/:id  | - | Muestra el usuario que corresponde al ID brindado | 200
 GET  | /products  | - | Muestra todos los productos | 200 
-GET  | /products:id  | - | Muestra el producto que corresponde al ID brindado | 200
+GET  | /products/:id  | - | Muestra el producto que corresponde al ID brindado | 200
 GET  | /sales  | - | Muestra todas las ventas | 200 
-GET  | /sales:id  | - | Muestra la venta que corresponde al ID brindado | 200 
+GET  | /sales/:id  | - | Muestra la venta que corresponde al ID brindado | 200 
 POST  | /users  | {firstname, lastname, dni, mail} | Carga un usuario con el body brindado | 200
 POST  | /products  | {name, price} | Carga un producto con el body brindado | 200
 POST  | /sales  | {products [{id, price}], userid, price, date} | Carga una venta con el body brindado | 200
