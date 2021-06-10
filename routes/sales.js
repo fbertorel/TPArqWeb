@@ -5,14 +5,8 @@ const router = express.Router();
 const salesService = require("../services/sales");
 
 router.get("/", (req, res) => {
-  const fromDate = req.query.from_date;
-  const toDate = req.query.to_date;
   let sales = [];
-  if (fromDate && toDate) {
-    sales = salesService.getAllBetweenDates(fromDate, toDate);
-  } else {
-    sales = salesService.getAll();
-  }
+  sales = salesService.getAll();
   res.send(sales);
 });
 
@@ -43,18 +37,6 @@ router.get("/product/:productId", (req, res) => {
   }
 });
 
-router.get("/user/:userId/comissions", (req, res) => {
-  const fromDate = req.query.from_date;
-  const toDate = req.query.to_date;
-  try {
-    const comissions = salesService.getComissionsByUser(req.params.userId, fromDate, toDate);
-    res.send({
-      comissions,
-    });
-  } catch (e) {
-    res.status(400).send(e.message);
-  }
-});
 
 router.post("", (req, res) => {
   if (!req.body || !validateParams(req.body, salesService.fields) || !validateCollectionParams(req.body.products, salesService.productFields)) {

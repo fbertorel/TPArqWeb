@@ -13,12 +13,6 @@ class SalesService {
     return sales;
   }
 
-  getAllBetweenDates = (fromDate, toDate) => {
-    const from = Date.parse(fromDate);
-    const to = Date.parse(toDate);
-    return sales.filter(sale => sale.date > from && sale.date < to);
-  }
-
   getAllByUser = userId => {
     const userExists = usersService.get(userId);
     if (!userExists) {
@@ -49,25 +43,6 @@ class SalesService {
       throw new Error("Sale does not exist");
     }
     return sale;
-  }
-
-  getComissionsByUser = (userId, fromDate, toDate) => {
-    const userExists = usersService.get(userId);
-    if (!userExists) {
-      throw new Error("User does not exist");
-    }
-    let sales = [];
-    if (fromDate && toDate) {
-      sales = this.getAllBetweenDates(fromDate, toDate);
-      sales = sales.filter(sale => sale.userId === userId);
-    } else {
-      sales = this.getAllByUser(userId);
-    }
-    let comissions = 0;
-    sales.forEach(sale => {
-      comissions += sale.totalPrice * 0.1;
-    });
-    return comissions;
   }
 
   create = sale => {
