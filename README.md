@@ -27,7 +27,7 @@ GET  | /products/:id  | - | Muestra el producto que corresponde al ID brindado |
 GET  | /sales  | - | Muestra todas las ventas | 200 
 GET  | /sales/:id  | - | Muestra la venta que corresponde al ID brindado | 200 
 GET  | /sales/user/:userId  | - | Muestra las compras de un usuario brindado | 200  
-GET  | /sales/product/:productId  | - | Muestra las compras de un producto brindado | 200  
+GET  | /sales/product/:productId  | - | Muestra las ventas de un producto brindado | 200  
 POST  | /users  | {firstname, lastname, dni, mail} | Carga un usuario con el body brindado | 200
 POST  | /products  | {name, description, price} | Carga un producto con el body brindado | 200
 POST  | /sales  | {products [{id, name, description, price}], userid, price, date} | Carga una venta con el body brindado | 200
