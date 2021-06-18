@@ -10,7 +10,7 @@ Se podra realizar:
 - ABM de ventas
 
 ---
-- Para correr el programa:
+#### Para correr el programa:
 ```bash
 npm start
 ```
