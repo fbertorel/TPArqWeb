@@ -8,19 +8,4 @@ const validateParams = (obj, keys) => {
   return isValid;
 };
 
-const validateCollectionParams = (collection, keys) => {
-  let isValid = true;
-  if (!collection.length) {
-    return false;
-  }
-  collection.forEach(obj => {
-    keys.forEach(key => {
-      if (!obj[key]) {
-        isValid = false;
-      }
-    });
-  })
-  return isValid;
-};
-
-module.exports = { validateParams, validateCollectionParams };
+module.exports = { validateParams };

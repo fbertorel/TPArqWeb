@@ -13,7 +13,6 @@ router.get("/:id", (req, res) => {
     const user = usersService.get(req.params.id);
     res.send(user);
   } catch(e) {
-    console.log("Probando users.find error");
     res.status(400).send(e.message);
   }
 });
@@ -31,12 +30,11 @@ router.delete("/:id", (req, res) => {
   }
 });
 
-router.post("", (req, res) => {             //mismo problema que products. Permite generar usuario sin verificar los parametros. Y carga usuario sin datos.
-  if (!req.body) {
+router.post("", (req, res) => {            
+  if (!req.body || !validateParams(req.body, usersService.fields)) {
     res.status(400).send("Parameters not defined");
     return;
   }
-  
   const user = {
     mail: req.body.mail,
     firstname: req.body.firstname,

@@ -29,12 +29,12 @@ class UsersService {
   }
 
   create = user => {
-    const existingUser = users.find(pUser => pUser.mail === user.mail);
+    const existingUser = users.find(pUser => pUser.document === user.document); //valido usuario por dni ya que id es random
     if (existingUser) {
       throw new Error("User already exists");
     }
     user.id = uuidv4();
-    users.push(user);
+    users.push(user);     //cargo usuario en JSON
     fs.writeFileSync("saves/users.json", JSON.stringify(users));
     return user;
   }

@@ -31,11 +31,10 @@ router.delete("/:id", (req, res) => {
 });
 
 router.post("", (req, res) => {           //me esta dejando enviar en el body cualquier cosa o paramentros faltantes. Necesito validar el body que se recibe
-  if (!req.body) {
+  if (!req.body || !validateParams(req.body, productsService.fields)) {
     res.status(400).send("Parameters not defined");
     return;
   }
-
   const product = {
     name: req.body.name,
     description: req.body.description,

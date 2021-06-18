@@ -1,5 +1,5 @@
 const express = require("express");
-const { validateParams, validateCollectionParams } = require('../validator/validator');
+const { validateParams } = require('../validator/validator');
 const router = express.Router();
 
 const salesService = require("../services/sales");
@@ -39,7 +39,7 @@ router.get("/product/:productId", (req, res) => {
 
 
 router.post("", (req, res) => {
-  if (!req.body || !validateParams(req.body, salesService.fields) || !validateCollectionParams(req.body.products, salesService.productFields)) {
+  if (!req.body || !validateParams(req.body, salesService.fields)) {
     res.status(400).send("Parameters not defined");
     return;
   }
@@ -58,7 +58,7 @@ router.post("", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  if (!req.params.id || !req.body || !validateParams(req.body, salesService.fields) || !validateCollectionParams(req.body.products, salesService.productFields)) {
+  if (!req.params.id || !req.body || !validateParams(req.body, salesService.fields)) {
     res.status(400).send("Parameters not defined");
     return;
   }

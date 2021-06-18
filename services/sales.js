@@ -14,18 +14,12 @@ class SalesService {
   }
 
   getAllByUser = userId => {
-    const userExists = usersService.get(userId);
-    if (!userExists) {
-      throw new Error("User does not exist");
-    }
+    usersService.get(userId);
     return sales.filter(sale => sale.userId === userId);
   }
 
   getAllByProduct = productId => {
-    const productExists = productsService.get(productId);
-    if (!productExists) {
-      throw new Error("Product does not exist");
-    }
+    productsService.get(productId);
     return sales.filter(sale => {
       let matches = false;
       sale.products.forEach(product => {
@@ -46,10 +40,7 @@ class SalesService {
   }
 
   create = sale => {
-    const dataErrorMessage = this.dataErrorMessage(sale);
-    if (dataErrorMessage) {
-      throw new Error(dataErrorMessage);
-    }
+    this.saleError(sale);
     sale.id = uuidv4();
     sales.push(sale);
     fs.writeFileSync("saves/sales.json", JSON.stringify(sales));
@@ -61,10 +52,7 @@ class SalesService {
     if (saleIndex === -1) {
       throw new Error("Sale does not exist");
     }
-    const dataErrorMessage = this.dataErrorMessage(sale);
-    if (dataErrorMessage) {
-      throw new Error(dataErrorMessage);
-    }
+    this.saleError(sale);
     sales[saleIndex] = sale;
     fs.writeFileSync("saves/sales.json", JSON.stringify(sales));
     return sale;
@@ -80,20 +68,12 @@ class SalesService {
     return true;
   }
 
-  dataErrorMessage = sale => {
-    let message = "";
+  saleError = sale => {
     sale.products.forEach(product => {
-      const exists = productsService.get(product.id);
-      if (!exists) {
-        message += `Product ${product.id} doesn"t exist | `;
-      }
+      productsService.get(product.id);  //veo que cada producto exista porque puedo pasar mas de 1. 
     });
-    const userExists = usersService.get(sale.userId);
-    if (!userExists) {
-      message += `User ${sale.userId} doesn"t exist`;
-    }
-    return message;
-  }
+    usersService.get(sale.userId);      //veo que el usuario exista.
+  }                                     //ambos get ya arrojan error.
 }
 
 module.exports = new SalesService();

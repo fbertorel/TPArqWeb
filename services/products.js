@@ -29,7 +29,7 @@ class ProductsService {
 
   create = product => {
     product.id = uuidv4();    //id unica
-    products.push(product);   //agrega producto 
+    products.push(product);   //agrega producto
     fs.writeFileSync("saves/products.json", JSON.stringify(products));  //guardo producto en archivo JSON
     return product;
   }
